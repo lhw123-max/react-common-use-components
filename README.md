@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# react-common-use-components [![npm](https://img.shields.io/npm/dt/react-common-use-components.svg?style=flat-square)](https://www.npmjs.com/package/react-common-use-components) [![npm](https://img.shields.io/npm/v/react-common-use-components.svg?style=flat-square)](https://www.npmjs.com/package/react-common-use-components)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A library of commonly used React components,Contains the following components: FlexBox, CountDown,InfiniteScroll,Modal,ToastProvider,Toast,Uploader
 
-## Available Scripts
+## Install
 
-In the project directory, you can run:
+```bash
+  npm install --save react-common-use-components
 
-### `npm start`
+  or
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  yarn add react-common-use-components
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  // in code ES6
+  import InfiniteScroll from 'react-common-use-components';
+  // or commonjs
+  var InfiniteScroll = require('react-common-use-components');
+```
 
-### `npm test`
+## Using
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```jsx
+import React, {useState} from 'react';
+import FlexBox from "react-common-use-components";
 
-### `npm run build`
+const YourComponent = () => {
+   const [startTimer, setStartTimer] = useState(false)
+   const onClick = () => {
+     setStartTimer(true)
+   }
+  return (
+         <div>
+           <CountDown style={{
+             width: "8rem",
+             height: "1.25rem",
+             borderRadius: "0.375rem",
+             textAlign: 'center',
+             lineHeight: "1.25rem",
+             fontsize:"1.25rem !important",
+             marginRight:"0.25rem",
+             backgroundColor:"#F8F8F8",
+             color:'#3370DA',
+             cursor:"pointer"
+           }} onClick={onClick}  status={startTimer}/>
+         </div>
+  );
+};
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export default YourComponent;
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## CountDown props
 
-### `npm run eject`
+| name                           | type                 | description                                                                                                                                                                                                                                                                                                                                   |
+| ------------------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **startTimer**                 | boolean              | timer switch |
+| **onClick**                    | function             | callback function |
+| **style**                      | object               | countdown style |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## LICENSE
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT](LICENSE)

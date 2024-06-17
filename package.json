@@ -1,11 +1,30 @@
 {
-  "name": "react_lhw_components",
-  "version": "0.1.0",
-  "private": true,
+  "name": "react-common-use-components",
+  "version": "0.1.8",
+  "main": "dist/index.js",
+  "description": "A library of commonly used React components",
+  "keywords": [
+    "react",
+    "react_common_components",
+    "components",
+    "modal",
+    "count-down",
+    "toast",
+    "infinite-scroll"
+  ],
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lhw123-max/react-common-use-components.git",
+    "directory": "packages/react-common-use-components"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "autoprefixer": "^10.4.19",
+    "file-loader": "^6.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
@@ -13,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npx webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +53,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.4"
   }
 }
