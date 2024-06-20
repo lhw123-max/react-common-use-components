@@ -1,6 +1,6 @@
 {
   "name": "react-common-use-components",
-  "version": "0.1.10",
+  "version": "0.2.4",
   "main": "dist/index.js",
   "description": "A library of commonly used React components",
   "keywords": [
@@ -12,8 +12,14 @@
     "toast",
     "infinite-scroll"
   ],
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "index.js",
+    "dist/",
+    "package.json",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/lhw123-max/react-common-use-components.git",

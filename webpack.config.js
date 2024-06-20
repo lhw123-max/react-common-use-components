@@ -6,7 +6,8 @@ module.exports = {
     output: {
         path: path.resolve('dist'),
         filename: 'index.js',
-        libraryTarget: 'commonjs2'
+        libraryTarget: 'umd',  // 输出模块格式为 UMD
+        globalObject: 'this',  // 全局对象为 this（兼容浏览器和 Node.js）
     },
     resolve: {
         modules: [
@@ -18,9 +19,12 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /node_modules\/(?!react_lhw_components)/, // 确保只排除非 react_lhw_components 的第三方模块
+                exclude: /node_modules/, // 确保只排除非 react_lhw_components 的第三方模块
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
                 }
             },
             // 处理图片文件

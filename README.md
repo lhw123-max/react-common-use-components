@@ -22,6 +22,35 @@ A library of commonly used React components,Contains the following components: F
 
 ## Using
 
+## Button
+```jsx
+import React, {useState} from 'react';
+import {Button} from "react-common-use-components";
+
+const YourComponent = () => {
+   const onClick = () => {
+     
+   }
+  return (
+         <div>
+             <Button type={'primary'} disabled={false} onClick={onClick} isDebounce={true} debounceDelay={2000} >购买</Button>
+         </div>
+  );
+};
+
+export default YourComponent;
+
+```
+
+## Button props
+| name             |     params                             | type        | description                                                                                                                                                                                                                                                                                                                                   |
+| -----------------|--------------------------------        | ----------  | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **onClick**      |  () => {}                              | function    | click function |
+| **type**         |  'default','primary','success','danger','warning'    | string      | button type |
+| **debounceDelay**|  5000                                  | number      | Anti shake delay time  |
+| **isDebounce**   |  false                                 | boolean     | Is click stabilization enabled |
+| **disabled**     |  false                                 | boolean     | Is disabled  |
+
 ## CountDown
 ```jsx
 import React, {useState} from 'react';
@@ -246,7 +275,7 @@ export default App;
 
 ```
 
-## Uploader props
+## FlexBox props
 
 | name             |     params                     | type        | description      |                                                                                                                                                      
 | -----------------|--------------------------------| ----------  | ---------------- |
