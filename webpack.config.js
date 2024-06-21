@@ -6,13 +6,14 @@ module.exports = {
     output: {
         path: path.resolve('dist'),
         filename: 'index.js',
-        libraryTarget: 'umd',  // 输出模块格式为 UMD
-        globalObject: 'this',  // 全局对象为 this（兼容浏览器和 Node.js）
+        libraryTarget: 'commonjs2'
     },
     resolve: {
         modules: [
             path.resolve(__dirname, 'src'),
-            'node_modules'
+            'node_modules',
+            'src/App.js',
+            'src/index.js'
         ]
     },
     module: {

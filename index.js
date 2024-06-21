@@ -5,7 +5,9 @@ import InfiniteScroll from "./src/commen/InfiniteScroll/InfiniteScroll";
 import Modal from "./src/commen/Modal/Modal";
 import ToastProvider,{Toast} from "./src/commen/Toast/Toast";
 import Uploader from "./src/commen/Uploader";
-import Button from "./src/commen/Button/Button"
+import Button from "./src/commen/Button/Button";
+import PreviewVideo from "./src/commen/PreVideo/PreviewVideo";
 
-export  {FlexBox,CountDown,InfiniteScroll,Modal,ToastProvider,Toast,Uploader,Button}
+
+export  {FlexBox,CountDown,InfiniteScroll,Modal,ToastProvider,Toast,Uploader,Button,PreviewVideo}
 

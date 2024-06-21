@@ -256,6 +256,37 @@ export default App;
 | **onSuccess**    |  (file) => {}                  | function    | callback function for successful file selection |
 | **style**        |  {background:'rgba(0,0,0,0.5)'}| object      | Uploader container style  |
 
+
+## PreviewVideo
+```jsx
+//App.js
+import React, {useState} from 'react';
+import {PreviewVideo,Button} from "react-common-use-components";
+const App = () => {
+ 
+    return (
+          <div>
+              <PreviewVideo autoPlay={true} url={'your video url'} >
+                  <Button type={'primary'} >预览</Button>
+              </PreviewVideo>
+          </div>
+    );
+};
+
+export default App;
+
+```
+
+## PreviewVideo props
+| name             |     params                     | type        | description                                                                                                                                                                                                                                                                                                                                   |
+| -----------------|--------------------------------| ----------  | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **url**          |     ''                         | string      | video url  |
+| **autoPlay**     |   true                         | boolean     | autoplay video|
+| **playIcon**     |  require file or image url     | string |    | video play icon |
+| **videoStyle**   |  {width:"200px"}               | object      | video style  |
+
+
+
 ## FlexBox
 ```jsx
 //App.js

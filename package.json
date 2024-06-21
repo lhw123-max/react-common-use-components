@@ -1,16 +1,17 @@
 {
   "name": "react-common-use-components",
-  "version": "0.2.4",
+  "version": "0.3.6",
   "main": "dist/index.js",
   "description": "A library of commonly used React components",
   "keywords": [
     "react",
-    "react_common_components",
+    "react-common-components",
     "components",
     "modal",
     "count-down",
     "toast",
-    "infinite-scroll"
+    "infinite-scroll",
+    "preview-video"
   ],
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
