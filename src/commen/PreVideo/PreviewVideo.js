@@ -7,11 +7,10 @@ import {VideoDom} from "../PreVideo/VideoDom"
 
 const PreviewVideo = ({url,videoStyle,children,playIcon,autoPlay}) => {
 	const [openModal,setOpenModal] = useState(false)
-	
+
 	function closeModal() {
 		setOpenModal(false)
 	}
-	
 	return (
 		<FlexBox onClick={() => {
 			if (!url){
