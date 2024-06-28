@@ -2,44 +2,41 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',
-    entry: './index.js',
+    entry: './src/index.ts', // Entry point (adjust if necessary)
     output: {
-        path: path.resolve('dist'),
-        filename: 'index.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js', // Adjusted output filename
         libraryTarget: 'commonjs2'
     },
     resolve: {
         modules: [
             path.resolve(__dirname, 'src'),
-            'node_modules',
-            'src/App.js',
-            'src/index.js'
-        ]
+            'node_modules'
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'] // Added TypeScript extensions
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/, // 确保只排除非 react_lhw_components 的第三方模块
+                test: /\.(js|jsx|ts|tsx)$/,
+                include: path.resolve(__dirname, 'src'),
+                exclude: /(node_modules|dist)/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react',
+                            '@babel/preset-typescript' // Added TypeScript preset
+                        ]
                     }
                 }
             },
-            // 处理图片文件
-            {
-                test: /\.(png|jpg|gif)$/i,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'images', // 图片输出的路径
-                        },
-                    },
-                ],
-            },
+
         ]
+    },
+    externals: {
+        'react': 'commonjs react',
+        'react-dom': 'commonjs react-dom'
     }
 };

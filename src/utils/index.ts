@@ -7,3 +7,7 @@ export const generateRandomNumber = () => {
     // 再加上 min，将随机数范围调整为 min 到 max。
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+export function isFunction(value:Function) {
+    return typeof value === 'function';
+}
