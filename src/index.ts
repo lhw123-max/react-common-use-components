@@ -6,7 +6,8 @@ import ToastProvider,{Toast} from "./common/Toast/Toast";
 import Uploader from "./common/Uploader/Uploader";
 import Button from "./common/Button/Button";
 import PreviewVideo from "./common/PreVideo/PreviewVideo";
+import Tabs from "./common/Tabs/Tabs"
 
+export  {FlexBox,CountDown,InfiniteScroll,Modal,ToastProvider,Toast,Uploader,Button,PreviewVideo,Tabs}
 
-export  {FlexBox,CountDown,InfiniteScroll,Modal,ToastProvider,Toast,Uploader,Button,PreviewVideo}
 

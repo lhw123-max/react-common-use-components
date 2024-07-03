@@ -24,8 +24,19 @@ const Modal = ({children,openModal,style,position='center',onClose}:ModalProps) 
 	}
 
 	return (
-		<>
-
+		<div>
+			<style>
+				{ `
+				    @keyframes initAnimation {
+				      0%   { opacity:0}
+				      20%  { opacity:0.1}
+				      40%  { opacity:0.2}
+				      60%  { opacity:0.3}
+				      80%  { opacity:0.4}
+				      100% { opacity:0.5}
+				    }
+				 `}
+			</style>
 			{
 				openModal &&
 
@@ -42,6 +53,7 @@ const Modal = ({children,openModal,style,position='center',onClose}:ModalProps) 
 					display:"flex",
 					justifyContent:getPosition().justifyContent,
 					alignItems:getPosition().alignItems,
+					animation: 'initAnimation 0.25s ease',
 					...style
 				}}
 				>
@@ -49,7 +61,7 @@ const Modal = ({children,openModal,style,position='center',onClose}:ModalProps) 
 				</div>
 
 			}
-		</>
+		</div>
 	)
 }
 export default  Modal
