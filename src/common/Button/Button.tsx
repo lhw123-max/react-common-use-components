@@ -1,5 +1,5 @@
-import React, {CSSProperties, ReactNode, useState} from 'react';
-import {isFunction} from "../../utils";
+import React, {CSSProperties, ReactNode} from 'react';
+import {debounce, isFunction} from "../../utils";
 
 
 interface ButtonProps {
@@ -13,8 +13,7 @@ interface ButtonProps {
 	className?: string;
 }
 
-const Button = ({children, onClick,type = '', style,disabled =false,isDebounce = false,debounceDelay = 3000,className}:ButtonProps) => {
-	const [debounce,setDebounce] = useState(isDebounce || false)
+const Button = ({children, onClick,type = '', style,disabled =false,isDebounce = false,debounceDelay = 500,className}:ButtonProps) => {
 
 	const  click = async () => {
 		if (!onClick){
@@ -23,16 +22,8 @@ const Button = ({children, onClick,type = '', style,disabled =false,isDebounce =
 		if (!isFunction(onClick)){
 			return;
 		}
-
 		if (isDebounce ){
-			if (!debounce) {
-				return;
-			}
-			setDebounce(false)
-			await onClick()
-			setTimeout(() => {
-				setDebounce(true)
-			},debounceDelay)
+			debounce(onClick,debounceDelay | 500)
 		}else {
 			onClick()
 		}

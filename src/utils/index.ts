@@ -7,3 +7,11 @@ export const generateRandomNumber = () => {
 export function isFunction(value:Function) {
     return typeof value === 'function';
 }
+
+export const debounce = (func: () => void, wait: number) => {
+    let timeout: NodeJS.Timeout;
+    return (...args: any) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+};

@@ -1,12 +1,7 @@
-import React, {useEffect, useState, useRef, ReactNode, CSSProperties} from 'react';
+import React, {useEffect, useState, useRef, ReactNode} from 'react';
+import {debounce} from "../../utils";
 
-const debounce = (func: () => void, wait: number) => {
-    let timeout: NodeJS.Timeout;
-    return (...args: any) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-};
+
 
 interface InfiniteScrollProps {
     children: ReactNode;
@@ -45,7 +40,6 @@ const InfiniteScroll = ({
 
         if (marginBottom <= threshold && scrollTop > topValueRef.current && hasMore) {
             setShowLoading(true);
-            console.log('触底了');
             setTimeout(() => {
                 setShowLoading(false);
                 if (loadMore) {
