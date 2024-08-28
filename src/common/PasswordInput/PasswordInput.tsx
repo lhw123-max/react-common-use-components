@@ -1,5 +1,6 @@
 import React, {ChangeEvent, CSSProperties, useEffect, useRef, useState} from 'react';
 import FlexBox from "../FlexBox/FlexBox";
+import {range} from "../../utils";
 
 interface PasswordInputProps {
     maxLength?: number,
@@ -67,7 +68,7 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
                 `}
             </style>
             {
-                Array.from({length: maxLength}, (_, index) => index).map((_, i) => {
+                range(maxLength as number).map((_, i) => {
                     return (
                         <div key={i} style={{
                             marginLeft: i === 0 ? 0 : 4, height: 44,
@@ -84,7 +85,7 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
                                 width: 1,
                                 height: 16,
                                 backgroundColor: "#000000",
-                                animation: "blink 1s step(1,start) infinite"
+                                animation: "blink 1s step-start infinite"
                             }}/>}
                             {i < state.text.length ? <div style={{
                                 width: 16,

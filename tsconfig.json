@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",                     // 编译目标为 ES5，可以根据需要调整
-    "module": "commonjs",                // 模块系统为 CommonJS，适合 Node.js 环境
+    "module": "commonjs",// 模块系统为 CommonJS，适合 Node.js 环境
+    "allowJs": true,
     "strict": true,                      // 开启严格模式
     "esModuleInterop": true,             // 支持 ES 模块的导入形式
     "skipLibCheck": true,                // 跳过声明文件的检查，可以提高编译速度
