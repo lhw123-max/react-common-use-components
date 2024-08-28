@@ -375,6 +375,105 @@ export default App;
 | **defaultActiveKey** |  '2'   | string      |init default item  |
 | **activeLineColor** |  '#666666'   | string      |active item line color |
 
+## ProgressBar
+
+```jsx
+//App.js
+import React, {useState} from 'react';
+import {ProgressBar} from "react-common-use-components";
+
+const App = () => {
+    return (
+        <div>
+            <ProgressBar percent={20}/>
+        </div>
+    );
+};
+
+export default App;
+
+```
+
+## ProgressBar props
+
+| name             |     params                     | type        | description      |                                                                                                                                                      
+| -----------------|--------------------------------| ----------  | ---------------- |
+| **percent**        |  20   | number       | Progress value , total is 100  |
+| **barWidth**   |  "100px"| string | ProgressBar width  |
+| **barHeight**   |  "16px"| string | ProgressBar height  |
+| **barBgColor**  |  "#000000"| string | ProgressBar background color  |
+| **trackBgColor**  |  "#b3b3b3"| string | ProgressBar track background color  |
+
+## AudioPlayer
+
+```jsx
+//App.js
+import React from 'react';
+import {AudioPlayer} from "react-common-use-components";
+
+const App = () => {
+    return (
+        <div>
+            <AudioPlayer url={'https://example.cpm/xxx.mp4'}/>
+        </div>
+    );
+};
+
+export default App;
+
+```
+
+## AudioPlayer props
+
+| name             |     params                     | type        | description      |                                                                                                                                                      
+| -----------------|--------------------------------| ----------  | ---------------- |
+| **url**        |  'https://example.cpm/xxx.mp4'   | string       | video url  |
+| **playIcon**   |  <img/> | ReactNode | play button |
+| **pauseIcon**   |  <img/> | ReactNode | pause button |
+| **forwardIcon**   |  <img/> | ReactNode | Fast forward button |
+| **backwardIcon**   |  <img/> | ReactNode | back button |
+| **timeTextStyle** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |play time text style  |
+
+
+
+## PasswordInput
+
+```jsx
+//App.js
+import React from 'react';
+import {PasswordInput} from "react-common-use-components";
+
+const App = () => {
+    return (
+        <div>
+            <PasswordInput/>
+        </div>
+    );
+};
+
+export default App;
+
+```
+
+maxLength?: number,
+style?: CSSProperties,
+inputItemStyle?: CSSProperties,
+iconStyle?: CSSProperties,
+onChange?: (value: string) => void,
+onSubmit?: (value: string) => void,
+autoFocus?:boolean
+## PasswordInput props
+
+| name             |     params                     | type        | description      |                                                                                                                                                      
+| -----------------|--------------------------------| ----------  | ---------------- |
+| **maxLength**        |  6   | number       | input maxLength  |
+| **autoFocus**   |  true | boolean | input autoFocus (default: true) |
+| **onChange**   |  (value: string) => void | function | input onchange callback method |
+| **onSubmit**   |  (value: string) => void | function | The callback function after input completion,this function is triggered when the value length is equal to maxLength |
+| **style** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |input container style  |
+| **inputItemStyle** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |input item style  |
+| **iconStyle** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |input item icon style  |
+
 ## LICENSE
 
 [MIT](LICENSE)

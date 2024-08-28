@@ -11,7 +11,7 @@ module.exports = {
     resolve: {
         modules: [
             path.resolve(__dirname, 'src'),
-            'node_modules'
+            'node_modules',
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'] // Added TypeScript extensions
     },
@@ -31,6 +31,10 @@ module.exports = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.svg$/,
+                use: 'file-loader',
             },
 
         ]
