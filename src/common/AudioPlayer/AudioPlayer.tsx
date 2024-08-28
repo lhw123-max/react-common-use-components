@@ -47,7 +47,6 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
         }
     }, []);
 
-
     const totalTime:string = useMemo(() => {
         const second = Math.floor(duration);
         const remainder = Math.round(second % 60);
