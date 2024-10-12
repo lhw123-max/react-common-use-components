@@ -8,7 +8,7 @@ interface ToastProviderProps {
 	children: ReactNode;
 }
 interface ToastProps {
-	show?: ({text, type, duration}:{text:string,type:string,duration?:number}) => void;
+	show: ({text, type, duration}:{text:string,type:string,duration?:number}) => void;
 	close?: (timeout?:number) => void;
 }
 
@@ -41,7 +41,7 @@ const ToastProvider = ({children}:ToastProviderProps) => {
 	}
 
 	function rotateSmoothly() {
-		const loading_icon = document.getElementById('loading_icon')
+		const loading_icon = document.getElementById('toast_loading')
 		let rotation = 0;
 
 		function animate() {
@@ -98,7 +98,7 @@ const ToastProvider = ({children}:ToastProviderProps) => {
 						{type === 'warning' &&
 						<WarningIcon style={{width: "2rem", height: "2rem"}} />}
 						{type === 'loading' &&
-						<LoadingIcon style={{width: "2rem", height: "2rem"}} />}
+						<LoadingIcon id={'toast_loading'} style={{width: "2rem", height: "2rem"}} />}
 						<div style={{
 							marginTop: 8,
 							maxWidth: 120,
@@ -119,7 +119,7 @@ export default ToastProvider
 
 
 
-export const Toast:ToastProps = {}
+export let Toast:ToastProps = {show,close}
 
 Toast.show = ({text, type, duration}) => {
 	show({text, type, duration})

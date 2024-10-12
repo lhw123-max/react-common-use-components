@@ -10,7 +10,7 @@ import Tabs from "./common/Tabs/Tabs"
 import ProgressBar from "./common/ProgressBar/ProgressBar"
 import AudioPlayer from "./common/AudioPlayer/AudioPlayer"
 import PasswordInput from "./common/PasswordInput/PasswordInput"
-
+import VideoPlayer from "./common/VideoPlayer/VideoPlayer";
 export {
     FlexBox,
     CountDown,
@@ -24,5 +24,6 @@ export {
     Tabs,
     ProgressBar,
     AudioPlayer,
-    PasswordInput
+    PasswordInput,
+    VideoPlayer
 }

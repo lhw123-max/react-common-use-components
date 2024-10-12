@@ -5,6 +5,9 @@ import AudioPlayIcon from "../../assets/svgs/AudioPlayIcon";
 import FlexBox from "../FlexBox/FlexBox";
 import FastBackwardIcon from "../../assets/svgs/FastBackwardIcon";
 import FastForwardIcon from "../../assets/svgs/FastForwardIcon";
+import MuteIcon from "../../assets/svgs/MuteIcon";
+import VoiceIcon from "../../assets/svgs/VoiceIcon";
+import MuteCancelIcon from "../../assets/svgs/MuteCancelIcon";
 
 interface AudioPlayerProps {
     url:string;
@@ -22,7 +25,9 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
-
+    const [isMuted, setIsMuted] = useState(false);
+    const [volume,setVolume] = useState(50)
+    const [showVolume,setShowVolume] = useState(false)
     useEffect(() => {
         if (played) {
             audioRef.current?.play().catch((err) => {
@@ -46,7 +51,11 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
             };
         }
     }, []);
-
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current!.muted = isMuted;
+        }
+    },[isMuted])
     const totalTime:string = useMemo(() => {
         const second = Math.floor(duration);
         const remainder = Math.round(second % 60);
@@ -85,9 +94,9 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
             audioRef.current!.currentTime = Math.min(audioRef.current!.duration, audioRef.current!.currentTime + 2);
         }
     }
-
+    console.log(isMuted)
     return (
-        <>
+        <div style={{width:"100%",backgroundColor:"rgba(255,255,255,0.5)"}}>
             <audio
                 ref={audioRef}
                 src={url}
@@ -96,7 +105,7 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
                 }}
                 onEnded={() => setPlayed(false)}
             />
-            <FlexBox>
+            <FlexBox style={{width:"100%"}}>
 
                 {played ?
                     <FlexBox  onClick={() => setPlayed(false)}>
@@ -110,14 +119,38 @@ const AudioPlayer = ({url,playIcon,pauseIcon,forwardIcon,progressBarConfig,backw
                 <FlexBox  onClick={backward}>
                     {backwardIcon ? backwardIcon : <FastBackwardIcon style={{width:"2rem",height:"2rem"}}  />}
                 </FlexBox>
-                <ProgressBar trackBgColor={progressBarConfig?.trackBgColor} barBgColor={progressBarConfig?.barBgColor} barWidth={progressBarConfig?.barWidth} barHeight={progressBarConfig?.barHeight} percent={percent} />
-                <FlexBox  onClick={forward}>
+                <ProgressBar onChange={(percent: number) => {
+                    setPlayed(true)
+                    const newTime = Math.floor((percent / 100) * duration)
+                    if (audioRef.current) {
+                        setCurrentTime(newTime)
+                        audioRef.current!.currentTime = newTime;
+                    }
+                }} trackBgColor={progressBarConfig?.trackBgColor} barBgColor={progressBarConfig?.barBgColor} barWidth={progressBarConfig?.barWidth || "6rem"} barHeight={progressBarConfig?.barHeight} percent={percent} />
+                <FlexBox style={{marginLeft:"0.5rem"}}  onClick={forward}>
                     {forwardIcon ? forwardIcon : <FastForwardIcon style={{width:"2rem",height:"2rem"}}  />}
                 </FlexBox>
+                <div style={{position:"relative"}}>
+                    <FlexBox style={{margin:"0.25rem"}}>
+                        {isMuted ? <MuteIcon onClick={() => {setIsMuted(false)}} style={{width:"2rem",height:"2rem",margin:"0.25rem"}}/>:
+                            <MuteCancelIcon onClick={() => {setIsMuted(true)}} style={{width:"2rem",height:"2rem",margin:"0.25rem"}}/>
+                        }
+                        <VoiceIcon  onClick={() => {setShowVolume(!showVolume)}} style={{width:"2rem",height:"2rem",marginLeft:"0.5rem"}}/>
+                    </FlexBox>
+
+                    {
+                        showVolume && <FlexBox style={{position:"absolute",top:"-1.5rem",left:"-1rem"}}>
+                            <div style={{color:"#FFFFFF",fontSize:"1rem",marginRight:"0.5rem"}}>{volume}</div>
+                            <ProgressBar  onChange={(volume: number) => {
+                                setVolume(volume)
+                            }}  barWidth={"5rem"} barHeight={"0.5rem"} percent={volume} />
+                        </FlexBox>
+                    }
+                </div>
                 <div style={{color:"#B3B3B3",...timeTextStyle}}>{totalTime?_currentTime +'/' +totalTime:''}</div>
 
             </FlexBox>
-        </>
+        </div>
     );
 };
 

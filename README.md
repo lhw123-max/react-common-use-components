@@ -403,6 +403,10 @@ export default App;
 | **barHeight**   |  "16px"| string | ProgressBar height  |
 | **barBgColor**  |  "#000000"| string | ProgressBar background color  |
 | **trackBgColor**  |  "#b3b3b3"| string | ProgressBar track background color  |
+| **min**   |  "100px"| string | ProgressBar min num  |
+| **max**   |  "16px"| string | ProgressBar max num  |
+| **onChange**   |  (percent: number) => void       | function    | Slide the slider to return the callback function of the current precision  |
+| **isOpenSlideBlock**   |  true| boolean | open the slider operation progress  |
 
 ## AudioPlayer
 
@@ -433,6 +437,37 @@ export default App;
 | **forwardIcon**   |  <img/> | ReactNode | Fast forward button |
 | **backwardIcon**   |  <img/> | ReactNode | back button |
 | **timeTextStyle** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |play time text style  |
+
+## VideoPlayer
+
+```jsx
+//App.js
+import React from 'react';
+import {AudioPlayer} from "react-common-use-components";
+
+const App = () => {
+    return (
+        <VideoPlayer width={"80vw"} height={"80vh"} url={'https://xxxx.mp4'}/>
+    );
+};
+
+export default App;
+
+```
+
+## VideoPlayer props
+
+| name             |     params                     | type        | description      |                                                                                                                                                      
+| -----------------|--------------------------------| ----------  | ---------------- |
+| **url**        |  'https://example.cpm/xxx.mp4'   | string       | video url  |
+| **playIcon**   |  <img/> | ReactNode | play button |
+| **pauseIcon**   |  <img/> | ReactNode | pause button |
+| **forwardIcon**   |  <img/> | ReactNode | Fast forward button |
+| **backwardIcon**   |  <img/> | ReactNode | back button |
+| **timeTextStyle** |  {color:'rgba(0,0,0,0)'}   | CSSProperties |play time text style  |
+| **width**   |  "80vw"| string | VideoPlayer width  |
+| **height**   |  "80vh"| string | VideoPlayer height  |
+
 
 
 

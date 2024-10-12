@@ -1,6 +1,6 @@
 {
   "name": "react-common-use-components",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "A React mobile commonly used component library",
@@ -15,7 +15,8 @@
     "preview-video",
     "progress-bar",
     "audio-player",
-    "password-input"
+    "password-input",
+    "video-player"
   ],
   "author": {
     "name": "Li Hewei",
