@@ -490,17 +490,12 @@ export default App;
 
 ```
 
-maxLength?: number,
-style?: CSSProperties,
-inputItemStyle?: CSSProperties,
-iconStyle?: CSSProperties,
-onChange?: (value: string) => void,
-onSubmit?: (value: string) => void,
-autoFocus?:boolean
+
 ## PasswordInput props
 
 | name             |     params                     | type        | description      |                                                                                                                                                      
 | -----------------|--------------------------------| ----------  | ---------------- |
+| **value**        |  ''   | string      | input value  |
 | **maxLength**        |  6   | number       | input maxLength  |
 | **autoFocus**   |  true | boolean | input autoFocus (default: true) |
 | **onChange**   |  (value: string) => void | function | input onchange callback method |

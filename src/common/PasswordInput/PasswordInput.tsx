@@ -3,6 +3,7 @@ import FlexBox from "../FlexBox/FlexBox";
 import {range} from "../../utils";
 
 interface PasswordInputProps {
+    value?:string,
     maxLength?: number,
     style?: CSSProperties,
     inputItemStyle?: CSSProperties,
@@ -12,8 +13,8 @@ interface PasswordInputProps {
     autoFocus?:boolean
 }
 
-const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChange, onSubmit,autoFocus = true}: PasswordInputProps) => {
-    const [state, setState] = useState({text: ''});
+const PasswordInput = ({value,maxLength = 6, style, inputItemStyle, iconStyle, onChange, onSubmit,autoFocus = true}: PasswordInputProps) => {
+    const [content, setContent] = useState(value?value:'');
     const [isFocused, setIsFocused] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,11 +36,11 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
     const ref = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-        if (state.text.length > maxLength - 1 && onSubmit) {
-            onSubmit(state.text)
+        if (content.length > maxLength - 1 && onSubmit) {
+            onSubmit(content)
         }
 
-    }, [state.text])
+    }, [content])
 
 
     const onPress = () => {
@@ -80,14 +81,14 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
                             borderRadius: 12,
                             fontSize: 16, ...inputItemStyle
                         }}>
-                            {(i === state.text.length && isFocused) && <div style={{
+                            {(i === content.length && isFocused) && <div style={{
                                 display: "inline-block",
                                 width: 1,
                                 height: 16,
                                 backgroundColor: "#000000",
                                 animation: "blink 1s step-start infinite"
                             }}/>}
-                            {i < state.text.length ? <div style={{
+                            {i < content.length ? <div style={{
                                 width: 16,
                                 height: 16,
                                 backgroundColor: "#000000",
@@ -98,6 +99,7 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
                 })
             }
             <input
+                value={content}
                 style={{opacity: 0, zIndex: -1, position: "absolute", top: 8, left: "50%", width: 1}}
                 ref={ref}
                 maxLength={maxLength}
@@ -105,7 +107,7 @@ const PasswordInput = ({maxLength = 6, style, inputItemStyle, iconStyle, onChang
                 type="text"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     if (e.target.value.length <= maxLength) {
-                        setState({text: e.target.value});
+                        setContent(e.target.value);
                         if (onChange) {
                             onChange(e.target.value);
                         }
