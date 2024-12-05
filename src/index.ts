@@ -11,6 +11,7 @@ import ProgressBar from "./common/ProgressBar/ProgressBar"
 import AudioPlayer from "./common/AudioPlayer/AudioPlayer"
 import PasswordInput from "./common/PasswordInput/PasswordInput"
 import VideoPlayer from "./common/VideoPlayer/VideoPlayer";
+import AudioRecorder from "./common/AudioRecorder/AudioRecorder"
 export {
     FlexBox,
     CountDown,
@@ -25,5 +26,6 @@ export {
     ProgressBar,
     AudioPlayer,
     PasswordInput,
-    VideoPlayer
+    VideoPlayer,
+    AudioRecorder
 }

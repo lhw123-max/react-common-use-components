@@ -25,3 +25,19 @@ export const range = (number:number) => {
     }
     return newArray
 }
+
+export function getPlatform() {
+
+    // 判断是否是 iOS
+    if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+        return 'iOS';
+    }
+
+    // 判断是否是 Android
+    if (/Android/i.test(navigator.userAgent)) {
+        return 'Android';
+    }
+
+    // 默认返回未知平台
+    return 'Unknown';
+}

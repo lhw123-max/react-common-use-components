@@ -1,128 +1,175 @@
-// import React, { useState, useEffect, ReactElement, useRef } from 'react';
-// import RecordVoice from "../../assets/images/vc_home/record_voice.svg";
-// import CancelRv from "../../assets/images/vc_home/cancel_r_v.svg";
-//
-// interface AudioRecorderProps {
-//     callback:  (blob: Blob | null, duration: number | null) => void;
-//     children: ReactElement;
-// }
-//
-// const AudioRecorder: React.FC<AudioRecorderProps> = ({ callback, children }) => {
-//     const [isRecording, setIsRecording] = useState(false);
-//     const [isCancelled, setIsCancelled] = useState(false);
-//     const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
-//     const [duration,setDuration] = useState(0)
-//     const [touchState,setTouchState] = useState(0)
-//     const [startTime, setStartTime] = useState<number | null>(null);
-//     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-//     const touchStartY = useRef(0);
-//     let timer
-//
-//     useEffect(() => {
-//         return () => {
-//             clearInterval(timer)
-//             if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-//                 mediaRecorderRef.current.stop();
-//             }
-//         };
-//     }, []);
-//
-//     const startRecording = async () => {
-//         try {
-//             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//             const mediaRecorder = new MediaRecorder(stream);
-//             setStartTime(Date.now());
-//             timer = setInterval(() => {
-//                 setDuration(value => value + 1)
-//             },1000)
-//             mediaRecorder.ondataavailable = (event: BlobEvent) => {
-//                 setAudioChunks(prevChunks => [...prevChunks, event.data]);
-//             };
-//
-//             mediaRecorder.onstop = () => {
-//                 clearInterval(timer)
-//                 if (startTime) {
-//                     const endTime = Date.now();
-//                     const duration = (endTime - startTime) / 1000;
-//                     setDuration(duration)
-//                     if (!isCancelled && audioChunks.length > 0) {
-//                         const blob = new Blob(audioChunks, { type: 'audio/wav' });
-//                         callback(blob, duration);
-//                     } else {
-//                         callback(null, null);
-//                     }
-//                     setAudioChunks([]);
-//                     setIsCancelled(false);
-//                 }
-//
-//             };
-//
-//             mediaRecorder.start();
-//             mediaRecorderRef.current = mediaRecorder;
-//             setIsRecording(true);
-//         } catch (error) {
-//             setDuration(0)
-//             clearInterval(timer)
-//             console.error('无法访问麦克风:', error);
-//         }
-//     };
-//
-//     const stopRecording = () => {
-//         if (mediaRecorderRef.current && isRecording) {
-//             mediaRecorderRef.current.stop();
-//             setIsRecording(false);
-//         }
-//     };
-//
-//     const handleTouchStart = (event: React.TouchEvent) => {
-//         setTouchState(1)
-//         touchStartY.current = event.touches[0].clientY;
-//         startRecording();
-//     };
-//
-//     const handleTouchMove = (event: React.TouchEvent) => {
-//         const touchCurrentY = event.touches[0].clientY;
-//         if (touchCurrentY < touchStartY.current - 50) {
-//             setTouchState(2)
-//             setIsCancelled(true);
-//             stopRecording();
-//         } else {
-//             setIsCancelled(false);
-//         }
-//     };
-//
-//     const handleTouchEnd = () => {
-//         if (!isCancelled) {
-//             stopRecording();
-//         } else {
-//             setTouchState(0)
-//             setDuration(0)
-//             // 如果取消，则清空录音数据
-//             setAudioChunks([]);
-//         }
-//     };
-//
-//
-//
-//     return (
-//         <div
-//             onTouchStart={handleTouchStart}
-//             onTouchMove={handleTouchMove}
-//             onTouchEnd={handleTouchEnd}
-//             className={'flex items-center justify-start flex-col '}
-//         >
-//             {touchState ===0 && <div className={'w-[7.03rem] h-[7.03rem]'} />}
-//             {touchState > 0 && <div className={ 'flex items-center justify-center flex-col w-[7.03rem] h-[7.03rem]'}>
-//                 {touchState === 1 &&<img src={RecordVoice} className={'w-[2.97rem] h-[1.98rem]'} alt=""/>}
-//                 <div className={'text-[#7FEADC] text-[0.875rem] leading-[1rem] break-all text-wrap'}>{duration}s</div>
-//                 {touchState === 2 && <img src={CancelRv} className={'w-[2.84em] h-[2.47rem]'} alt=""/>}
-//                 <div className={'text-[#656870] text-[0.875rem] leading-[1rem] w-[3.73rem] break-all text-wrap'}>{touchState === 1 ? "松手发送上滑取消":"松手撤销"}</div>
-//
-//             </div>}
-//             {children}
-//         </div>
-//     );
-// };
-//
-// export default AudioRecorder;
-//
+import React, {useState, ReactElement, useRef, useEffect, CSSProperties} from "react";
+import {generateRandomNumber, getPlatform} from "../../utils/";
+import RecorderIcon from "../../assets/svgs/RecorderIcon";
+
+const AudioRecorder: React.FC<{
+    callback?: (file: File | null, duration: number) => void;
+    children: ReactElement;
+    statusContainerStyle?: CSSProperties,
+    durationStyle?: CSSProperties
+
+}> = ({callback, children, statusContainerStyle,durationStyle}) => {
+    const [isRecording, setIsRecording] = useState(false);
+    const [isCancelled, setIsCancelled] = useState(false);
+    const [file, setFile] = useState<File | null>(null)
+    const [duration, setDuration] = useState(0);
+    const mediaRecorderRef = useRef<MediaRecorder>();
+    const timer = useRef<any>();
+    const touchStartY = useRef<number>(0);
+
+    useEffect(() => {
+        try {
+            navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
+                mediaRecorderRef.current = new MediaRecorder(stream);
+            }).catch(error => {
+                console.error("无法访问麦克风:", error);
+            })
+        } catch (error) {
+            console.error("无法访问麦克风:", error);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!mediaRecorderRef.current) return;
+        const handle = (evt: BlobEvent) => {
+            const audioFile = new File(
+                [evt.data],
+                `${generateRandomNumber()}_${new Date().getTime()}.${getPlatform() === 'iOS' ? 'aac' : "wav"}`,
+                {type: `audio/${getPlatform() === 'iOS' ? 'aac' : "wav"}`}
+            );
+            setFile(audioFile)
+        };
+        mediaRecorderRef.current!.ondataavailable = handle;
+        return () => {
+            mediaRecorderRef.current!.removeEventListener("dataavailable", handle);
+        };
+    }, [duration, callback]);
+
+    useEffect(() => {
+        if (file) {
+            if (isCancelled) {
+                setIsRecording(false)
+                setDuration(0)
+                setFile(null)
+                setIsCancelled(false)
+            } else {
+                console.log(file,duration)
+                if (callback) {
+                    callback(file, duration)
+                }
+                setDuration(0)
+                setFile(null)
+            }
+        }
+    }, [isCancelled, isRecording, file])
+
+    // 用户按下录音按钮
+    const startRecording = () => {
+        if (mediaRecorderRef.current?.state === "inactive") {
+            mediaRecorderRef.current?.start();
+            clearInterval(timer.current);
+            timer.current = setInterval(() => {
+                setDuration((d) => d + 1);
+            }, 1000);
+        }
+    };
+
+    // 用户松开录音按钮
+    const stopRecording = () => {
+        if (mediaRecorderRef.current?.state === "recording") {
+            mediaRecorderRef.current?.stop();
+            setIsRecording(false);
+            clearInterval(timer.current);
+        }
+    };
+
+    // 禁用右键菜单
+    const handleContextMenu = (e: React.MouseEvent) => {
+        e.preventDefault(); // 禁用右键菜单
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setIsRecording(true);
+        touchStartY.current = e.touches[0].clientY; // 记录初始触摸位置
+        startRecording();
+    };
+
+    const handleTouchEnd = () => {
+        stopRecording();
+
+    };
+
+    // 用户上划操作
+    const handleTouchMove = (e: React.TouchEvent) => {
+        const currentY = e.touches[0].clientY;
+        if (currentY < touchStartY.current - 50) { // 向上滑动超过50px
+            setIsCancelled(true)
+            setIsRecording(false);
+        }
+    };
+
+    return (
+        <div
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove} // 处理滑动事件
+            onContextMenu={handleContextMenu} // 禁用右键菜单
+            style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                flexDirection: "column",
+                userSelect: "none"
+            }}
+        >
+            {!isRecording && <div style={{width: "7.03rem", height: "7.03rem"}}/>}
+            {
+                isRecording &&
+                <div
+
+                    style={{
+                        backgroundColor: `#f5F5F5`,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        borderRadius: '0.75rem',
+                        marginBottom: "0.5rem",
+                        width: "8.03rem",
+                        height: "8.03rem",
+                        ...statusContainerStyle
+                    }}
+                >
+                    <RecorderIcon style={{width: "2rem", height: "2rem"}}/>
+                    <div style={{
+                        color: "#1677ff",
+                        fontSize: "0.875rem",
+                        lineHeight: "1rem",
+                        wordBreak: "break-all",
+                        wordWrap: "break-word",
+                        marginTop: "0.5rem", ...durationStyle
+                    }}>
+                        {duration}s
+                    </div>
+                    <div
+                        style={{
+                            fontWeight: 500,
+                            width: "3.5rem",
+                            color: "#656870",
+                            fontSize: "0.75rem",
+                            lineHeight: "1rem",
+                            wordBreak: "break-all",
+                            wordWrap: "break-word",
+                            marginTop: "0.5rem"
+                        }}
+                    >
+                        松手发送 上滑取消
+                    </div>
+                </div>}
+
+            {children}
+        </div>
+    );
+};
+
+export default AudioRecorder;

@@ -157,8 +157,7 @@ export default YourComponent;
 | **hasMore**                    | boolean              | Do you have any more data |
 | **dataLength**                 | number               | list or data length |
 | **total**                      | number               | list or data total |
-| **
-threshold**                  | number               | The distance from the bottom of the container, triggered by the callback function when touching the bottom, in pixels |
+| **threshold**                  | number               | The distance from the bottom of the container, triggered by the callback function when touching the bottom, in pixels |
 | **end**                        | reactNode            | end component |
 | **loading**                    | reactNode            | loading component |
 
@@ -337,6 +336,35 @@ export default App;
 | -----------------|--------------------------------| ----------  | ---------------- |
 | **onClick**      |  () => {}                      | function    | click function  |
 | **style**        |  {background:'rgba(0,0,0,0.5)'}| CSSProperties  | FlexBox style  |
+
+
+## AudioRecorder
+
+```jsx
+//App.js
+import React, {useState} from 'react';
+import {AudioRecorder} from "react-common-use-components";
+
+const App = () => {
+    return (
+        <div>
+            <AudioRecorder callback={(file,duration) => {}}/>
+        </div>
+    );
+};
+
+export default App;
+
+```
+
+## AudioRecorder props
+
+| name             |     params                       | type        | description      |                                                                                                                                                      
+| -----------------|------------------------------------ | ----------  | ---------------- |
+| **callback**      |  (file:File,duration:number) => {} | function    | The callback function after completing the recording  |
+| **statusContainerStyle** |  {background:'rgba(0,0,0,0.5)'}| CSSProperties  | status container style  |
+| **durationStyle** |  {color:'#000000'}| CSSProperties  | duration text style  |
+
 
 ## Tabs
 
